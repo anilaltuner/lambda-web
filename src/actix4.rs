@@ -5,7 +5,7 @@
 use crate::request::LambdaHttpEvent;
 use core::convert::TryFrom;
 use core::future::Future;
-use lambda_runtime::{Error as LambdaError, LambdaEvent, Service as LambdaService};
+use lambda_http::{Error as LambdaError, LambdaEvent, Service as LambdaService};
 use std::pin::Pin;
 
 /// Run Actix web application on AWS Lambda
@@ -57,7 +57,7 @@ where
         .await
         .unwrap();
 
-    lambda_runtime::run(ActixHandler(new_svc)).await?;
+    lambda_http::run(ActixHandler(new_svc)).await?;
 
     Ok(())
 }
